@@ -11,10 +11,10 @@ describe('File Handler Service', () => {
 
     it('Should return new file create location by adding the file name for full qualifed path', () => {
 
-      const fileHandler: FileHandlerService = new FileHandlerService('c:\\Users\\ALAIN\\Documents\\Project\\landing.component.ts');
+      const fileHandler: FileHandlerService = new FileHandlerService('c:/Users/ALAIN/Documents/Project/landing.component.ts');
       fileHandler.createNewFile();
       
-      const expectedPath: string=resolve('c:\\Users\\ALAIN\\Documents\\Project\\landing.component.spec.ts');
+      const expectedPath: string=resolve('c:/Users/ALAIN/Documents/Project/landing.component.spec.ts');
       const actualPath: string= resolve(fileHandler.getFullQualifiedFilePath);
 
 
