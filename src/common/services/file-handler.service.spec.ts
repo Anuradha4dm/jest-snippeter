@@ -1,5 +1,6 @@
 
 import { FileHandlerService } from "./file-handler.service";
+import { normalize } from 'path';
 
 jest.mock('fs', () => ({
   writeFileSync: jest.fn(),
@@ -12,8 +13,10 @@ describe('File Handler Service', () => {
 
       const fileHandler: FileHandlerService = new FileHandlerService('c:\\Users\\ALAIN\\Documents\\Project\\landing.component.ts');
       fileHandler.createNewFile();
+      
+      const expectedPath: string=normalize('c:\\Users\\ALAIN\\Documents\\Project\\landing.component.spec.ts');
 
-      expect(fileHandler.getFullQualifiedFilePath).toBe('c:\\Users\\ALAIN\\Documents\\Project\\landing.component.spec.ts');
+      expect(fileHandler.getFullQualifiedFilePath).toBe(expectedPath);
     });
 
   });
