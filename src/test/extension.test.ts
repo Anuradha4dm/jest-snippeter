@@ -3,5 +3,5 @@
 describe('Dummy Test',()=>{
 	it('Should always be true',()=>{
 		expect(true).toBeTruthy();
-	})
+	});
 });
