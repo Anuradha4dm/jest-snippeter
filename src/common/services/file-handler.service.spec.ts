@@ -15,8 +15,10 @@ describe('File Handler Service', () => {
       fileHandler.createNewFile();
       
       const expectedPath: string=normalize('c:\\Users\\ALAIN\\Documents\\Project\\landing.component.spec.ts');
+      const actualPath: string= normalize(fileHandler.getFullQualifiedFilePath);
 
-      expect(fileHandler.getFullQualifiedFilePath).toBe(expectedPath);
+
+      expect(actualPath).toBe(expectedPath);
     });
 
   });
