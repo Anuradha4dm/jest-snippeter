@@ -25,9 +25,13 @@ export function activate(context: vscode.ExtensionContext) {
 
 		if(uri){
 			const filePath: string=uri.fsPath;
-			// const fileName: string =uri.path.split('/').pop() ?? 'rename-file';
-
-			createNewUnitTestFile(filePath);
+			let testFileGeneratorContext: string= 'TestComponent';
+			const editorText: vscode.TextEditor | undefined= vscode.window.activeTextEditor;
+			if(editorText){
+				const selectedContext: vscode.Selection= editorText.selection;
+				testFileGeneratorContext=editorText.document.getText(selectedContext);
+			}
+			createNewUnitTestFile(filePath, testFileGeneratorContext);
 		}
 	});
 
