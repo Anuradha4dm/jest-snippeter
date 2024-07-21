@@ -1,6 +1,6 @@
 import { join } from 'path';
 import { writeFileSync } from 'fs';
-
+import { INIT_TEST_FILE_CONTEXT_COMPONENT } from '../../default-context/initial-file-context';
 
 export class FileHandlerService {
 
@@ -15,12 +15,12 @@ export class FileHandlerService {
     }
 
 
-    public createNewFile(): void {
+    public createNewFile(className: string): void {
         this.unitTestFileName = this.generateUnitTestFileName();
         this.fullQualifiedFilePath = this.getNewFileFileCreationLocation();
 
         try {
-            writeFileSync(this.getFullQualifiedFilePath, 'TO DO');
+            writeFileSync(this.getFullQualifiedFilePath, this.getFinalizedTestFileContent('component', className));
         } catch (error) {
             console.log('error', error);
         }
@@ -61,6 +61,39 @@ export class FileHandlerService {
             }
 
         }
+    }
+
+    private getFinalizedTestFileContent(type: string, className: string): string{
+        let testFileContent: string='';
+
+       if(type==='component'){
+        const replacement: Array<{searchValue: string ,replacement: string}>=[
+            {
+                searchValue: '$COMPONENT$',
+                replacement: className
+            },
+            {
+                searchValue: '$COMPONENT_PATH$',
+                replacement: `./${this.getFilePathForImport(this.unitTestFileName)}`
+            }
+        ];
+        testFileContent= this.replacementInTemplated(INIT_TEST_FILE_CONTEXT_COMPONENT, replacement);
+       }
+
+       return testFileContent;
+
+    }
+
+    private replacementInTemplated(context: string, replacements: Array<{searchValue: string ,replacement: string}>): string{
+        replacements.forEach((replace: {searchValue: string ,replacement: string})=>{
+            context=context.replaceAll(replace.searchValue, replace.replacement);
+        });
+
+        return context;
+    }
+
+    private getFilePathForImport(fileName: string): string{
+        return fileName.replace('.spec.ts', '');
     }
 
 
