@@ -10,7 +10,7 @@ describe('Test $COMPONENT$', () => {
     beforeEach(() => {
 
         TestBed.configureTestingModule({
-            declarations: [],
+            declarations: [$COMPONENT$],
             schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
             providers: [],
         }).compileComponents();
